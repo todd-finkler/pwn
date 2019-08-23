@@ -1,9 +1,9 @@
 #Ghidra Lock File
-#Fri Aug 09 09:38:30 EDT 2019
+#Mon Aug 19 09:53:03 EDT 2019
 OS\ Name=Linux
 OS\ Version=4.15.0-54-generic
 Username=flyingfish
 Hostname=flyingfish
 <META>\ Supports\ File\ Channel\ Locking=Channel Lock
 OS\ Architecture=amd64
-Timestamp=8/9/19, 9\:38 AM
+Timestamp=8/19/19, 9\:53 AM
