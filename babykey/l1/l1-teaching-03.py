@@ -16,14 +16,14 @@ def main():
 
     # load the binary
     print ('[*] loading the binary')
-    p = angr.Project("babykey_level1_teaching")
+    proj = angr.Project("babykey_level1_teaching")
     print (p.loader.all_objects)
 
     # This block constructs the initial program state for analysis.
     # Because we're going to have to step deep into the C++ standard libraries
     # for this to work, we need to run everyone's initializers. The full_init_state
     # will do that. In order to do this peformantly, we will use the unicorn engine!
-    state = p.factory.full_init_state(args=['./babykey_level1_teaching'], add_options=angr.options.unicorn)
+    state = proj.factory.full_init_state(args=['./babykey_level1_teaching'], add_options=angr.options.unicorn)
 
     # It's reasonably easy to tell from looking at the program in IDA that the key will
     # be 29 bytes long, and the last byte is a newline.
@@ -31,7 +31,7 @@ def main():
 
     # Construct a SimulationManager to perform symbolic execution.
     # Step until there is nothing left to be stepped.
-    simgr = p.factory.simulation_manager(state)
+    simgr = proj.factory.simulation_manager(state)
     simgr.run()
 
     while simgr.active:
@@ -40,14 +40,14 @@ def main():
         simgr.run()
         print (len(simgr.active))
 
-    simgr.move(from_stash='deadended', to_stash='password', filter_func=lambda s: b'Correct! Here is your flag:' in s.posix.dumps(1))
+    simgr.move(from_stash='deadended', to_stash='password', filter_func=lambda s: b'Correct! Here is your flag:' in state.posix.dumps(1))
 
     # Print the number of branches
     print (simgr)
 
     assert simgr.deadended
-    if simgr.password != 
-        flag = simgr.password[-1].posix.dumps(0).split("\n")[0]
+    # if simgr.password != 
+    flag = simgr.password[-1].posix.dumps(0).split("\n")[0]
         #flag = simgr.one_password
     print (simgr)
 
